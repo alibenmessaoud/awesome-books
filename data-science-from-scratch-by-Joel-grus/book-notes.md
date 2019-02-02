@@ -1,5 +1,7 @@
 ## Data Science from Scratch
 
+![](./data-science-from-scratch-cover.png)
+
 by Joel Grus
 Copyright © 2015 O’Reilly Media. All rights reserved.
 
