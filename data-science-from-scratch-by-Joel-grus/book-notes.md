@@ -35,3 +35,9 @@ Some warm up example, Finding Key Connectors in a list of user with friendships 
 
 ### Chapter 2
 
+Python introduction
+
+![](./data-science-from-scratch-by-Joel-grus.ipynb)  
+
+### Chapter 3
+
