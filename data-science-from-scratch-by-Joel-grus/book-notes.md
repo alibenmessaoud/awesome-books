@@ -39,5 +39,33 @@ Python introduction
 
 ![](./data-science-from-scratch-by-Joel-grus.ipynb)  
 
-### Chapter 3
+### Chapter 3: Visualizing Data
+
+```python
+from matplotlib import pyplot as plt
+years = [1950, 1960, 1970, 1980, 1990, 2000, 2010]
+gdp = [300.2, 543.3, 1075.9, 2862.5, 5979.6, 10289.7, 14958.3]
+# create a line chart, years on x-axis, gdp on y-axis
+plt.plot(years, gdp, color='green', marker='o', linestyle='solid')
+# add a title
+plt.title("Nominal GDP")
+# add a label to the y-axis
+plt.ylabel("Billions of $")
+plt.show()
+
+# _/
+```
+
+- Bar Charts: A bar chart is a good choice when you want to show how some quantity varies among some discrete set of items.
+- Line Charts: As we saw already, we can make line charts using plt.plot() . These are a good choice for showing trends
+- Scatterplots: A scatterplot is the right choice for visualizing the relationship between two paired sets of data.
+
+For Further Exploration
+
+- seaborn is built on top of matplotlib.
+- D3.js is a JavaScript library.
+- Bokeh is a newer library that brings D3-style visualizations into Python.
+- ggplot is a Python port of the popular R library ggplot2 for “publication quality” charts and graphics.
+
+### Chapter 4: Linear Algebra
 
