@@ -319,3 +319,16 @@ def normal_pdf(x, mu=0, sigma=1):
 The normal distribution is so useful is the central limit theorem. 
 
 ### Chapter 7: Hypothesis and Inference
+
+#### Statistical Hypothesis Testing
+
+#### Example: Flipping a Coin
+
+#### Confidence Intervals
+
+#### P-hacking
+
+#### Example: Running an A/B Test
+
+#### Bayesian Inference
+
