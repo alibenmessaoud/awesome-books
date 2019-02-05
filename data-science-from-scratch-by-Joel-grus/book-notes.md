@@ -69,3 +69,253 @@ For Further Exploration
 
 ### Chapter 4: Linear Algebra
 
+LA: branch of mathematics that deals with vector spaces.
+
+**Vector**: objects that can be added together; can multiplied by scalars (i.e., numbers) to form new vectors; good way to represent numeric data;
+
+```python
+def vector_add(v, w): return [v_i + w_i for v_i, w_i in zip(v, w)]
+def vector_subtract(v,(v, w): return [v_i - w_i for v_i, w_i in zip(v, w)]         
+def vector_sum(vectors):
+    result = vectors[0]
+    for vector in vectors[1:]: # then loop over the others
+    	result = vector_add(result, vector)
+    return result
+def vector_sum(vectors): return reduce(vector_add, vectors)
+def scalar_multiply(c, v): return [c * v_i for v_i in v]
+def vector_mean(vectors): return scalar_multiply(1/len(vectors), vector_sum(vectors))
+def dot(v, w): return sum(v_i * w_i for v_i, w_i in zip(v, w))
+def sum_of_squares(v): return dot(v, v)
+def magnitude(v): return math.sqrt(sum_of_squares(v))
+def squared_distance(v, w): return sum_of_squares(vector_subtract(v, w))
+def distance(v, w): return math.sqrt(squared_distance(v, w))
+def distance(v, w): return magnitude(vector_subtract(v, w))
+```
+
+**Matrices**: a two-dimensional collection of numbers; lists of lists; 
+
+```python
+A = [[1, 2, 3], [4, 5, 6]]
+
+def shape(A): return len(A), len(A[0]) if A else 0
+def get_row(A, i): return A[i]
+def get_column(A, j): return [A_i[j] for A_i in A]
+def make_matrix(num_rows, num_cols, entry_fn):
+	return [ [entry_fn(i, j) for j in range(num_cols)] for i in range(num_rows)]
+def is_diagonal(i, j): return 1 if i == j else 0
+identity_matrix = make_matrix(5, 5, is_diagonal)
+```
+
+friendships can be represented a matrix of $n \times n$ person 
+
+```python
+friends_of_five = [i for i, is_friend in enumerate(friendships[5]) if is_friend]
+```
+
+### Chapter 5: Statistics
+
+#### Describe data  
+
+```python
+num_friends = [100, 49, 41, 40, 25, ..]
+friend_counts = Counter(num_friends)
+xs = range(101)
+ys = [friend_counts[x] for x in xs]
+plt.bar(xs, ys).show()
+# gives A histogram of friend counts
+# historgram is still too difficult to underdtand large data
+num_points = len(num_friends)
+largest_value = max(num_friends)
+smallest_value = min(num_friends)
+sorted_values = sorted(num_friends)
+smallest_value = sorted_values[0]
+second_smallest_value = sorted_values[1]
+second_largest_value = sorted_values[-2]
+
+```
+
+**Central Tendencies**
+
+Notion of where data is centered
+
+```python
+#the mean is simply the point halfway between
+def mean(x): return sum(x)/len(x)
+mean(num_friends) # 7.333333
+
+#the median is the middle-most value (if the number of data points is odd) or the average of the two middle-most values (if the number of data points is even).
+def median(v):
+   """finds the 'middle-most' value of v"""
+   n = len(v)
+   sorted_v = sorted(v)
+   midpoint = n // 2
+   if n % 2 == 1:
+   	# if odd, return the middle value
+   	return sorted_v[midpoint]
+   else:
+   	# if even, return the average of the middle values
+   	lo = midpoint - 1
+  		hi = midpoint
+   	return (sorted_v[lo] + sorted_v[hi]) / 2
+median(num_friends) # 6.0
+
+#quantile is a generalization of the median 
+def quantile(x, p):
+   """returns the pth-percentile value in x"""
+   p_index = int(p * len(x))
+   return sorted(x)[p_index]
+quantile(num_friends, 0.10) #1
+quantile(num_friends, 0.25) #3
+quantile(num_friends, 0.75) #9
+quantile(num_friends, 0.90) #13
+
+#mode is most-common value
+def mode(x):
+   """returns a list, might be more than one mode"""
+   counts = Counter(x)
+   max_count = max(counts.values())
+   return [x_i for x_i, count in counts.iteritems() if count == max_count]
+mode(num_friends) # 1 and 6
+```
+
+But the mean is the most frequently used .
+
+**Dispersion**
+
+Dispersion refers to measures of how spread out our data is.
+
+```python
+#"range" already means something in Python, so we'll use a different name
+#rane is just the difference between the largest and smallest elements
+#max and min are equal then range is zero;
+def data_range(x): return max(x) - min(x)
+data_range(num_friends) # 99
+
+# translate x by subtracting its mean (so the result has mean 0)
+def de_mean(x): x_bar = mean(x) return [x_i - x_bar for x_i in x]
+
+# assumes x has at least two elements; deviations = de_mean(len(x))
+def variance(x): return sum_of_squares(de_mean(len(x))) / (n - 1)
+variance(num_friends) # 81.54
+
+def standard_deviation(x): return math.sqrt(variance(x))
+standard_deviation(num_friends) # 9.03
+#Both the range and the standard deviation have the same outlier problem that we saw earlier for the mean.
+
+#a robust alternative computes the interquartile_range as difference of 75 and 25
+def interquartile_range(x): return quantile(x, 0.75) - quantile(x, 0.25)
+interquartile_range(num_friends) # 6
+```
+
+#### Correlation
+
+See relation between num_friends and daily_minutes;
+
+Covariance, the paired analogue of variance.
+
+Variance measures how a single variable deviates from its mean, covariance measures how two
+variables vary in tandem from their means.
+
+```python
+def covariance(x, y):
+   n = len(x)
+   return dot(de_mean(x), de_mean(y)) / (n - 1)
+covariance(num_friends, daily_minutes) # 22.43
+```
+
+a “large” positive covariance => x tends to be large when y is large and small when y is small
+
+A “large” negative covariance => x tends to be small when y is large and vice versa
+
+A covariance close to zero means that no such relationship exists
+
+=> hard to interpret => correlation between -1 and 1 & has no unit;
+
+```python
+def correlation(x, y):
+   stdev_x = standard_deviation(x)
+   stdev_y = standard_deviation(y)
+   if stdev_x > 0 and stdev_y > 0:
+   	return covariance(x, y) / stdev_x / stdev_y
+   else:
+   	return 0
+# if no variation, correlation is zero
+correlation(num_friends, daily_minutes) # 0.25
+```
+
+#### Simpson’s Paradox
+
+#### Some Other Correlational Caveats
+
+#### Correlation and Causation
+
+### Chapter 6: Probability
+
+#### Dependence and Independence
+
+two events E and F are dependent if knowing some‐thing about whether E happens gives us information about whether F happens (and vice versa). Otherwise they are independent.
+
+E and F are independent if P(E, F) = P(E)P(F)
+
+#### Conditional Probability
+
+The probability of E “conditional on F” as P(E|F) = P(E,F)/P(F)
+
+>  You should think of this as the probability that E happens, given that we know that F happens.
+
+Rewrite this as: P(E,F) = P(E|F)P(F)
+
+When E and F are independent, you can check that this gives:  P(E) = P(E|F)
+
+> knowing F occurred gives us no additional information about whether E occurred.
+
+> the event “no girls” has probability 1/4, the event “one girl, one boy” has probability 1/2, and the event “two girls” has probability 1/4.
+
+#### Bayes’s Theorem
+
+“reversing” conditional probabilities
+
+Need to know the probability of some event E conditional on some other event F occurring. But we only have information about the probability of F conditional on E occurring: P(E|F) = P(E,F)/P(F) = P(F|E)P(E)/P(F)
+
+P(F) = P(F, E)P(F, not E)
+
+#### Random Variables
+
+A random variable is a variable whose possible values have an associated probability distribution.
+
+#### Continuous Distributions
+
+A coin flip corresponds to a discrete distribution.
+
+The uniform distribution puts equal weight on all the numbers between 0 and 1.
+
+Continuous distribution is represented with a probability density function (pdf) where the probability of seeing a value in a certain interval equals the integral of the density function over the interval.
+
+```python
+def uniform_pdf(x): return 1 if x >= 0 and x < 1 else 0
+```
+
+Cumulative distribution function (cdf), which gives the probability that a random variable is less than or equal to a certain value.
+
+```python
+def uniform_cdf(x):
+   if x < 0: return 0
+   elif x < 1: return x
+   else: return 1
+```
+
+#### The Normal Distribution
+
+The king of distributions. Uses two parameters: its mean μ (mu) and its standard deviation σ (sigma). The mean indicates where the bell is centered, and the standard deviation how “wide” it is.
+
+```python
+def normal_pdf(x, mu=0, sigma=1):
+	sqrt_two_pi = math.sqrt(2 * math.pi)
+	return (math.exp(-(x-mu) ** 2 / 2 / sigma ** 2) / (sqrt_two_pi * sigma))
+```
+
+#### The Central Limit Theorem
+
+The normal distribution is so useful is the central limit theorem. 
+
+### Chapter 7: Hypothesis and Inference
