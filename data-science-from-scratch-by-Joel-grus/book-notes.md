@@ -316,7 +316,7 @@ def normal_pdf(x, mu=0, sigma=1):
 
 #### The Central Limit Theorem
 
-The normal distribution is so useful is the central limit theorem. 
+One reason the normal distribution is so useful is the central limit theorem, which says (in essence) that a random variable defined as the average of a large number of independent and identically distributed random variables is itself approximately normally distributed. 
 
 ### Chapter 7: Hypothesis and Inference
 
