@@ -324,13 +324,52 @@ One reason the normal distribution is so useful is the central limit theorem, wh
 
 #### Statistical Hypothesis Testing
 
-#### Example: Flipping a Coin
+Setup hypotheses for statistics: null hypothesis H0 as default position; Create H1.. Hn and try to accept/reject. Use probability to conclude.
 
 #### Confidence Intervals
 
+Test hypotheses about the value of the probability p so construct a confidence interval around the observed value of the parameter.
+
 #### P-hacking
 
+Determine hypotheses before looking at the data; Clean data without the hypotheses in mind; Keep in mind that p-values are not substitutes for common sense.
+
+> P-hacking is the practice of performing a large number of analyses in a dataset with the intention of finding a p-value lower than 0.05. Then, the investigator publishes the “significant” result and never mentions all the other analysis.
+
+```python
+def run_experiment():
+    """flip a fair coin 1000 times, True = heads, False = tails"""
+	return [random.random() < 0.05 for _ in range(1000)]
+
+def reject(experiment):
+    """using the 5% significance levels"""
+    num_heads = len([flip for flip in experiment if flip])    
+    return num_heads < 469 or num_heads > 531
+
+experiments = [run_experiment() for _ in range(1000)]
+num_rejections = len([experiment for experiment in experiments if reject(experiment)])
+print (num_rejections) # 46
+```
+
+What this means is that if you’re setting out to find “significant” results, you usually can. Test enough hypotheses against your data set, and one of them will almost certainly appear significant. Remove the right outliers, and you can probably get your p value below 0.05.
+
 #### Example: Running an A/B Test
+
+Test 2 ads with 2 groups like or no;
+
+```python
+# N number of persons
+# n number of responses; n <= N
+def estimated_parameters(N, n):
+    p = n / N
+    sigma = math.sqrt(p * (1 - p) / N)
+    return p, sigma
+
+def a_b_test_statistic(N_A, n_A, N_B, n_B):
+    p_A, sigma_A = estimated_parameters(N_A, n_A)
+    p_B, sigma_B = estimated_parameters(N_B, n_B)
+    return (p_B - p_A) / math.sqrt(sigma_A ** 2 + sigma_B ** 2)
+```
 
 #### Bayesian Inference
 
