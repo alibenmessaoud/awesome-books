@@ -253,9 +253,11 @@ correlation(num_friends, daily_minutes) # 0.25
 
 #### Dependence and Independence
 
-two events E and F are dependent if knowing some‐thing about whether E happens gives us information about whether F happens (and vice versa). Otherwise they are independent.
+Two events E and F are independent if the result of the second event is not affected by the result of the first event. Else, E and F are dependent if the result of the first event affects the outcome of the second event so that the probability is changed: P(E, F) = P(E)P(F)
 
-E and F are independent if P(E, F) = P(E)P(F)
+[2 red games, 3 green games]
+[independent: take 2 games + replace them; p(red, green) = 1/2x1/3]
+[dependent: take 2 games + 1 is replace; p(red, green) = 1/2x1/2]
 
 #### Conditional Probability
 
