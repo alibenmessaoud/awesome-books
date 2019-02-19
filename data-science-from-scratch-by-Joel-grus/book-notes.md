@@ -373,5 +373,15 @@ def a_b_test_statistic(N_A, n_A, N_B, n_B):
 
 #### Bayesian Inference
 
-### Chapter 8
+//
+
+### Chapter 8: Gradient descent
+
+#### The idea
+
+“A gradient measures how much the output of a function changes if you change the inputs a little bit.” — Lex Fridman (MIT)
+
+Used to find the values of a functions parameters (coefficients) that minimize a cost function as far as possible.
+
+
 
