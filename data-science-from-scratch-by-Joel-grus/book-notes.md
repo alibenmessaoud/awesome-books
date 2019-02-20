@@ -377,11 +377,116 @@ def a_b_test_statistic(N_A, n_A, N_B, n_B):
 
 ### Chapter 8: Gradient descent
 
-#### The idea
-
-“A gradient measures how much the output of a function changes if you change the inputs a little bit.” — Lex Fridman (MIT)
+“A gradient measures how much the output of a function changes if you change the inputs a little bit.” — Lex Fridman (MIT).
 
 Used to find the values of a functions parameters (coefficients) that minimize a cost function as far as possible.
 
+#### The idea
 
+Suppose a function f that takes a list of values and return a single value. So we'll need to  maximize or minimize f => find the input v that produces the largest (or smallest) possible value.
 
+The gradient gives the input direction in which the function most quickly increases.
+
+The approach to maximizing a function is to pick a random starting point, compute the gradient, take a small step in the direction of the gradient (i.e., the direction that causes the function to increase the most), and repeat with the new starting point. Similarly, you can try to minimize a function by taking small steps in
+the opposite direction.
+
+#### Estimating the Gradient
+
+As f(x), the derivative at a point x measures how f(x) changes when we make a very small change to x . It is defined as the limit of the difference quotients as h approaches zero.
+
+```python
+def difference_quotient(f, x, h): return (f(x + h) - f(x)) / h
+```
+
+The derivative is the slope of the tangent line at (x, f(x)) , 
+
+the difference quotient is the slope of the not-quite-tangent line that runs through x + h, f x + h . As h gets smaller and smaller, the not-quite-tangent line gets closer and closer to the tangent line
+
+![](./Approximating a derivative with a difference quotient.png)
+
+```python
+def partial_difference_quotient(f, v, i, h):
+    """compute the ith partial difference quotient of f at v"""
+    w = [v_j + (h if j == i else 0)
+    # add h to just the ith element of v
+    for j, v_j in enumerate(v)]
+    	return (f(w) - f(v)) / h
+    
+def estimate_gradient(f, v, h=0.00001):
+    return [partial_difference_quotient(f, v, i, h)
+    	for i, _ in enumerate(v)]
+```
+
+#### Using the Gradient
+
+Find min of `sum_of_squares` using GD. 
+
+```python
+"""computes the sum of squared elements in v"""
+def sum_of_squares(v): return sum(v_i ** 2 for v_i in v)	
+```
+
+And
+
+```python
+def step(v, direction, step_size):
+    """move step_size in the direction from v"""
+    return [v_i + step_size * direction_i for v_i, direction_i in zip(v, direction)]
+
+def sum_of_squares_gradient(v):  return [2 * v_i for v_i in v]
+    
+# pick a random starting point
+v = [random.randint(-10,10) for i in range(3)]
+tolerance = 0.0000001
+
+while True:
+    gradient = sum_of_squares_gradient(v) # compute the gradient at v
+    next_v = step(v, gradient, -0.01)     # take a negative gradient step
+    if distance(next_v, v) < tolerance:   # stop if we're converging
+    	break
+    v = next_v
+```
+
+```
+...
+v =  [3.1378647403519605e-06, -2.7892131025350726e-06, -2.7892131025350726e-06] next_v =  [3.075107445544921e-06, -2.733428840484371e-06, -2.733428840484371e-06] d =  1.0080796514452779e-07 tolerance 1e-07 d < t =  False
+
+v =  [3.075107445544921e-06, -2.733428840484371e-06, -2.733428840484371e-06] next_v =  [3.0136052966340228e-06, -2.678760263674684e-06, -2.678760263674684e-06] d =  9.879180584163681e-08 tolerance 1e-07 d < t =  True
+```
+
+#### Choosing the Right Step Size
+
+`step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]`
+
+step_sizes is last parameter in step function.
+
+```python
+def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
+    """use gradient descent to find theta that minimizes target function"""
+    
+    step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001] 
+    
+    theta = theta_0                         # set theta to initial value
+    target_fn = safe(target_fn)             # safe version of target_fn 
+    value = target_fn(theta)                # value we're minimizing
+    while True: 
+        gradient = gradient_fn(theta)
+        next_thetas = [step(theta, gradient, -step_size) for step_size in step_sizes]
+        
+    # choose the one that minimizes the error function
+    next_theta = min(next_thetas, key=target_fn)
+    next_value = target_fn(next_theta)
+    # stop if we're "converging"
+    if abs(value - next_value) < tolerance:
+    	return theta
+    else:
+    	theta, value = next_theta, next_value
+```
+
+#### Stochastic Gradient Descent
+
+Stochastic gradient descent, which computes the gradient (and takes a step) for only one point at a time.
+It cycles over our data repeatedly until it reaches a stopping point.
+
+Using the previous batch approach, each gradient step requires us to make a prediction and compute the
+gradient for the whole data set, which makes each step take a long time.
