@@ -490,3 +490,8 @@ It cycles over our data repeatedly until it reaches a stopping point.
 
 Using the previous batch approach, each gradient step requires us to make a prediction and compute the
 gradient for the whole data set, which makes each step take a long time.
+
+### Chapter 9: Getting data
+
+Data: most of passed time is about acquiring, cleaning, and transforming data.
+
