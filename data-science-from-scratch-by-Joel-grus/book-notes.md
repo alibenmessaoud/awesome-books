@@ -495,3 +495,65 @@ gradient for the whole data set, which makes each step take a long time.
 
 Data: most of passed time is about acquiring, cleaning, and transforming data.
 
+#### Read files
+
+```python
+file_for_reading = open('reading_file.txt', 'r')
+file_for_writing = open('writing_file.txt', 'w')
+file_for_appending = open('appending_file.txt', 'a')
+file_for_writing.close()
+```
+
+To close files automatically, use `with`: `with open(filename,'r') as file1:`
+
+Iterate over lines: `for line in file:`
+
+```python
+import csv
+with open('prices.txt', 'rb') as f:
+    reader = csv.reader(f, delimiter='\t')
+    for row in reader:
+    	date = row[0]
+```
+
+#### Scraping the Web
+
+Soup to pull data from HTML documents: `pip install beautifulsoup4`
+
+Requests to query the web: `pip install requests`
+
+Use a specific HTML parser: `pip install html5lib`
+
+```python
+from bs4 import BeautifulSoup
+import requests
+html = requests.get("http://www.example.com").text
+soup = BeautifulSoup(html, 'html5lib')
+
+first_paragraph = soup.find('p')
+first_paragraph_text = soup.p.text
+
+first_paragraph_id = soup.p['id']
+first_paragraph_id2 = soup.p.get('id')
+
+important_paragraphs = soup('p', {'class' : 'important'})
+important_paragraphs2 = soup('p', 'important')
+```
+
+#### APIs
+
+```
+import requests, json
+endpoint = "https://api.github.com/users/alibenmessaoud/repos"
+repos = json.loads(requests.get(endpoint).text)
+```
+
+Parse dates `pip install python-dateutil`
+
+```python
+from dateutil.parser import parse
+dates = [parse(repo["created_at"]) for repo in repos]
+```
+
+
+
