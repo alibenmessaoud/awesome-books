@@ -555,5 +555,42 @@ from dateutil.parser import parse
 dates = [parse(repo["created_at"]) for repo in repos]
 ```
 
+### Chapter 10: Working with Data
 
+Working with data is both an art and a science.
+
+#### Exploring Your Data
+
+- one-dimensional data set: compute a few summary statistics
+  - Plot histogram of data based on uniform and normal distribution
+-  Two Dimensions
+- Many Dimensions
+  - know how all the dimensions relate to one another: correlation matrix
+    - entry in row i and column j is the correlation between the ith dimension and the jth dimension of the data
+    - Scatterplot matrix
+
+#### Cleaning and Munging
+
+Real-world data is dirty.
+
+```python
+import dateutil.parser
+# dateutil.parser.parse
+# parse float
+# parse string
+```
+
+#### Manipulating Data
+
+- pick/ pluck/ group by/ ...
+
+#### Rescaling
+
+- changing units can change results
+
+#### Dimensionality Reduction
+
+- reduce the number of random variables under consideration by obtaining a set of principal variables.
+
+https://www.geeksforgeeks.org/dimensionality-reduction/
 
