@@ -594,3 +594,43 @@ import dateutil.parser
 
 https://www.geeksforgeeks.org/dimensionality-reduction/
 
+### Chapter 11: Machine Learning
+
+Data science is mostly turning business problems into data problems and collecting data and understanding data and cleaning data and formatting data, after which machine learning is almost an afterthought.
+
+#### Modeling
+
+What is a model? It’s simply a specification of a mathematical (or probabilistic) relationship that exists between different variables.
+
+A business model is probably based on simple mathematical relationships: profit is revenue minus expenses, revenue is units sold times average price, and so on. 
+
+The recipe model: based on trial and error —> in a kitchen, try different combinations of ingredients until found the liked food.
+
+#### ML
+
+Simply, machine learning to refer to creating and using models that are learned from data.
+
+Other contexts: ML = predictive modeling or data mining.
+
+Models:
+
+- supervised models (in which there is a set of data labeled with the correct answers to learn from)
+- unsupervised models (in which there are no such labels)
+- semisupervised (in which only some of the data are labeled)
+- online (in which the model needs to continuously adjust to newly arriving data)
+
+#### Overfitting and Underfitting
+
+Overfitting, ML danger, model overfit on trained data but that generalizes poorly to any new data.
+
+- involve learning noise in the data
+- involve learning to identify specific inputs rather than whatever factors are actually predictive for the desired output.
+
+Underfitting, keep looking for a better one.
+
+So how do we make sure our models aren’t too complex? Use different data to train and to test the model, so split data train and test data: 
+
+- model was overfit to the training data, then perform really poorly on the test data; if it performs well on
+  the test data, then it’s fitting rather than overfitting.
+- can have common patterns in train and test data, so it is bad
+- having many models to test, so split data in 3 parts: train, validation, test
