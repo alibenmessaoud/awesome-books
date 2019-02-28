@@ -594,3 +594,84 @@ import dateutil.parser
 
 https://www.geeksforgeeks.org/dimensionality-reduction/
 
+### Chapter 11: Machine Learning
+
+Data science is mostly turning business problems into data problems and collecting data and understanding data and cleaning data and formatting data, after which machine learning is almost an afterthought.
+
+#### Modeling
+
+What is a model? It’s simply a specification of a mathematical (or probabilistic) relationship that exists between different variables.
+
+A business model is probably based on simple mathematical relationships: profit is revenue minus expenses, revenue is units sold times average price, and so on. 
+
+The recipe model: based on trial and error —> in a kitchen, try different combinations of ingredients until found the liked food.
+
+#### ML
+
+Simply, machine learning to refer to creating and using models that are learned from data.
+
+Other contexts: ML = predictive modeling or data mining.
+
+Models:
+
+- supervised models (in which there is a set of data labeled with the correct answers to learn from)
+- unsupervised models (in which there are no such labels)
+- semisupervised (in which only some of the data are labeled)
+- online (in which the model needs to continuously adjust to newly arriving data)
+
+#### Overfitting and Underfitting
+
+Overfitting, ML danger, model overfit on trained data but that generalizes poorly to any new data.
+
+- involve learning noise in the data
+- involve learning to identify specific inputs rather than whatever factors are actually predictive for the desired output.
+
+Underfitting, keep looking for a better one.
+
+So how do we make sure our models aren’t too complex? Use different data to train and to test the model, so split data train and test data: 
+
+- model was overfit to the training data, then perform really poorly on the test data; if it performs well on
+  the test data, then it’s fitting rather than overfitting.
+- can have common patterns in train and test data, so it is bad
+- having many models to test, so split data in 3 parts: train, validation, test
+
+#### Correctness
+
+Imagine building a model to make a binary judgment. Is this email spam? Should we hire this candidate? 
+
+Given a set of labeled data and such a predictive model, every data point lies in one of four categories:
+
+- True positive: “This message is spam, and we correctly predicted spam.”
+- False positive (Type 1 Error): “This message is not spam, but we predicted spam.”
+- False negative (Type 2 Error): “This message is spam, but we predicted notspam.”
+- True negative: “This message is not spam, and we correctly predicted not spam.”
+
+```python
+def accuracy(tp, fp, fn, tn):
+    correct = tp + tn
+    total = tp + fp + fn + tn
+    return correct / total
+
+print accuracy(70, 4930, 13930, 981070) # 0.98114
+```
+
+Precision measures how accurate our positive predictions were:
+
+```python
+def precision(tp, fp, fn, tn): return tp / (tp + fp)
+print precision(70, 4930, 13930, 981070) # 0.014	
+```
+
+Recall measures what fraction of the positives our model identified:
+
+```python
+def recall(tp, fp, fn, tn): return tp / (tp + fn)
+print recall(70, 4930, 13930, 981070) #0.05
+```
+
+F1 score is the harmonic mean of precision and recall and necessarily lies between them: 
+
+```python
+def f1_score(p, r): return 2 * p * r / (p + r)
+```
+
