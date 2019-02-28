@@ -637,6 +637,7 @@ So how do we make sure our models aren't too complex? Use different data to trai
   - a training set for building models
   - a validation set for choosing among trained models
   - a test set for judging the final model
+- A bigger problem is if you use the test/train split not just to judge a model but also to choose from among many models.
 
 #### Correctness
 
@@ -677,3 +678,42 @@ F1 score is the harmonic mean of precision and recall and necessarily lies betwe
 ```python
 def f1_score(p, r): return 2 * p * r / (p + r)
 ```
+
+Usually the choice of a model involves a trade-off between precision and recall. 
+
+- model that predicts “yes” (it’s a little bit confident) will probably have a high recall + low precision; 
+- model that predicts “yes” only (it’s extremely confident) is likely to have a low recall + high precision
+
+#### The Bias-Variance Trade-off
+
+Another way of thinking about the overfitting problem is as a trade-off between bias and variance.
+
+
+
+Both are measures of what would happen if you were to retrain your model many times on different sets of training data (choose a model that both accurately captures the regularities in its training data, but also generalizes well to unseen data).  
+
+The degree 0 model: High bias and low variance typically correspond to underfitting.
+
+> the model makes a lot of mistakes for any training set which means that it has a high bias
+>
+> two randomly chosen training sets (with similar average values) should give pretty similar models that it has low variance
+
+the degree 9 model:
+
+> the degree 9 model fit the training set perfectly.
+>
+> It has very low bias but very high variance
+
+So
+
+> If your model has high bias (which means it performs poorly even on your training data) then one thing to try is adding more features: Going from degree 0 to 1 model improves.
+>
+> If your model has high variance, then you can similarly remove features. But another solution is to obtain more data (if you can). 
+
+#### Feature Extraction and Selection
+
+data doesn’t have enough features = model is likely to underfit.
+
+data has too many features = model is easily going to overfit
+
+Features are whatever inputs we provide to our model.
