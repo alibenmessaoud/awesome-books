@@ -628,12 +628,15 @@ Overfitting, ML danger, model overfit on trained data but that generalizes poorl
 
 Underfitting, keep looking for a better one.
 
-So how do we make sure our models aren’t too complex? Use different data to train and to test the model, so split data train and test data: 
+So how do we make sure our models aren't too complex? Use different data to train and to test the model, so split data train and test data: 
 
 - model was overfit to the training data, then perform really poorly on the test data; if it performs well on
   the test data, then it’s fitting rather than overfitting.
 - can have common patterns in train and test data, so it is bad
 - having many models to test, so split data in 3 parts: train, validation, test
+  - a training set for building models
+  - a validation set for choosing among trained models
+  - a test set for judging the final model
 
 #### Correctness
 
@@ -674,4 +677,3 @@ F1 score is the harmonic mean of precision and recall and necessarily lies betwe
 ```python
 def f1_score(p, r): return 2 * p * r / (p + r)
 ```
-
