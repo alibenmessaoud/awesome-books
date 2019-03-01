@@ -717,3 +717,5 @@ data doesn’t have enough features = model is likely to underfit.
 data has too many features = model is easily going to overfit
 
 Features are whatever inputs we provide to our model.
+
+### Chapter 12: k-Nearest Neighbors
