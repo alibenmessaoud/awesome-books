@@ -719,3 +719,14 @@ data has too many features = model is easily going to overfit
 Features are whatever inputs we provide to our model.
 
 ### Chapter 12: k-Nearest Neighbors
+
+You want to predict something about me for a specific subject. If you know nothing else about me, one sensible approach is to look at how my neighbors are thinking about that subject.
+
+#### The Model 
+
+Simplest predictive models. It requires:
+
+- Some notion of distance
+- An assumption that points that are close to one another are similar
+
+### Chapter 13: Naive Bayes
