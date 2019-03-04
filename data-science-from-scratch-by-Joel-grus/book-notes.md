@@ -720,7 +720,12 @@ Features are whatever inputs we provide to our model.
 
 ### Chapter 12: k-Nearest Neighbors
 
-You want to predict something about me for a specific subject. If you know nothing else about me, one sensible approach is to look at how my neighbors are thinking about that subject.
+You want to predict something about me for a specific subject. If you know:
+
+- nothing about me: the approach is to look at how all my neighbors are thinking about that subject.
+  - Use the geographic distance;
+- many things about me: behavior is influenced by dimensions shared with my neighbors
+  - Use the geographic distance, age, my income, how many kids; 
 
 #### The Model 
 
@@ -728,5 +733,7 @@ Simplest predictive models. It requires:
 
 - Some notion of distance
 - An assumption that points that are close to one another are similar
+
+KNN quite consciously neglects a lot of information, and it predicts for each new point depends only on the handful of points closest to it.
 
 ### Chapter 13: Naive Bayes
