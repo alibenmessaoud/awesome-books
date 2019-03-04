@@ -734,6 +734,6 @@ Simplest predictive models. It requires:
 - Some notion of distance
 - An assumption that points that are close to one another are similar
 
-KNN quite consciously neglects a lot of information, and it predicts for each new point depends only on the handful of points closest to it.
+KNN quite consciously neglects a lot of information, and it predicts new point depends only on the handful of points closest to it.
 
 ### Chapter 13: Naive Bayes
