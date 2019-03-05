@@ -768,10 +768,10 @@ def knn_classify(k, labeled_points, new_point):
     return majority_vote(k_nearest_labels)
 ```
 
+k-NN needs to keep all data to classify new points. A contrario, linear regression keeps $\theta$ not training data. k-NN is called memory based algorithm. 
 
+Example 1: MNIST db; to recognize numbers.
 
-
-
-
+Example 2: Favorite language by state. 
 
 ### Chapter 13: Naive Bayes
