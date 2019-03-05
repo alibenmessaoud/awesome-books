@@ -736,4 +736,42 @@ Simplest predictive models. It requires:
 
 KNN quite consciously neglects a lot of information, and it predicts new point depends only on the handful of points closest to it.
 
+In the general situation, the data is a set points and knowledge is based on labels. The labels could be True and False, or A, B, C, etc. indicating whether each input satisfies some condition. k-NN: k for the number of neighbors to be chosen and vote for the new output.
+
+In that case, we have several options:
+• Pick one of the winners at random.
+• Weight the votes by distance and pick the weighted winner.
+• Reduce k until we find a unique winner.
+
+```python
+def majority_vote(labels):
+    """assumes that labels are ordered from nearest to farthest"""
+    vote_counts = Counter(labels)
+    winner, winner_count = vote_counts.most_common(1)[0]
+    num_winners = len([count for count in vote_counts.values() if count == winner_count])
+    if num_winners == 1:
+    	return winner
+    else:
+    	return majority_vote(labels[:-1])
+```
+
+So classifier is:
+
+```python
+def knn_classify(k, labeled_points, new_point):
+    """each labeled point should be a pair (point, label)"""
+    # order the labeled points from nearest to farthest
+    by_distance = sorted(labeled_points, key=lambda (point,_): distance(point, new_point))
+    # find the labels for the k closest
+    k_nearest_labels = [label for _, label in by_distance[:k]]
+    # and let them vote
+    return majority_vote(k_nearest_labels)
+```
+
+
+
+
+
+
+
 ### Chapter 13: Naive Bayes
